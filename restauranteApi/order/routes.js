@@ -1,6 +1,7 @@
 var { Router, Route } = require('../router');
 var { orderController } = require('./controller');
 var { OrderModel } = require('./model');
+var authController = require('../oauth2/auth');
 
 class OrderRouter extends Router {
 
@@ -12,13 +13,13 @@ class OrderRouter extends Router {
     get routes() {
         return {
             '/order': [
-                new Route("get", "getOrderList"),
-                new Route("post", "createOrder")
+                new Route("get", [authController.isAuthenticated, "getOrderList"]),
+                new Route("post", [authController.isAuthenticated, "createOrder"])
             ],
             '/order/:orderId': [
-                new Route("get", "getOrder"),
-                new Route("put", "updateOrder"),
-                new Route("delete", "deleteOrder")
+                new Route("get", [authController.isAuthenticated, "getOrder"]),
+                new Route("put", [authController.isAuthenticated, "updateOrder"]),
+                new Route("delete", [authController.isAuthenticated, "deleteOrder"])
             ]
         };
     }

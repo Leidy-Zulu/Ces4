@@ -1,13 +1,13 @@
 var passport = require('passport');
 var BasicStrategy = require('passport-http').BasicStrategy;
 var BearerStrategy = require('passport-http-bearer').Strategy
-var User = require('../user/model');
-var Client = require('../client/model');
-var Token = require('../token/model');
+var { UserModel } = require('./user/model');
+var { ClientModel } = require('./client/model');
+var { TokenModel } = require('./token/model');
 
 passport.use(new BasicStrategy(
     function (username, password, callback) {
-        User.findOne({ username: username })
+        UserModel.findOne({ username: username })
             .exec()
             .then((user) => {
 
@@ -26,7 +26,7 @@ passport.use(new BasicStrategy(
 
 passport.use('client-basic', new BasicStrategy(
     function (clientId, secret, callback) {
-        Client.findOne({ id: clientId })
+        ClientModel.findOne({ id: clientId })
             .exec()
             .then((client) => {
 
@@ -45,13 +45,13 @@ passport.use('client-basic', new BasicStrategy(
 
 passport.use(new BearerStrategy(
     function (accessToken, callback) {
-        Token.findOne({ value: accessToken })
+        TokenModel.findOne({ value: accessToken })
             .exec()
             .then((token) => {
 
                 if (!token) { return callback(null, false); }
 
-                User.findOne({ _id: token.userId })
+                UserModel.findOne({ _id: token.userId })
                     .exec()
                     .then((user) => {
 

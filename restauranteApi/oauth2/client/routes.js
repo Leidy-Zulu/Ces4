@@ -1,5 +1,6 @@
 var { Router, Route } = require('../../router');
 var { clientController } = require('./controller');
+var authController = require('../auth');
 
 class ClientRouter extends Router {
     constructor(app) {
@@ -9,10 +10,10 @@ class ClientRouter extends Router {
     get routes() {
         return {
             '/client': [
-                new Route("post", "createClient")
+                new Route("post", [/*authController.isAuthenticated,*/ "createClient"])
             ],
             '/client/:clientId': [
-                new Route("get", "getClient")
+                new Route("get", [authController.isAuthenticated, "getClient"])
             ]
         };
     }

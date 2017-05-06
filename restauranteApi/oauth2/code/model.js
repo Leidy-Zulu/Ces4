@@ -21,4 +21,4 @@ const CodeSchema = new Schema({
 });
 
 const CodeModel = mongoose.model('Code', CodeSchema);
-module.exports = CodeModel;
+exports.CodeModel = CodeModel;

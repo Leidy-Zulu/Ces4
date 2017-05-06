@@ -1,5 +1,6 @@
 var { Router, Route } = require('../../router');
 var { userController } = require('./controller');
+var authController = require('../auth');
 
 class UserRouter extends Router {
     constructor(app) {
@@ -12,7 +13,7 @@ class UserRouter extends Router {
                 new Route("post", "createUser")
             ],
             '/users': [
-                new Route("get", "getUsers")
+                new Route("get", [authController.isAuthenticated, "getUsers"])
             ]
         };
     }
