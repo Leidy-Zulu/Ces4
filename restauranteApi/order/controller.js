@@ -1,4 +1,5 @@
 var { OrderModel } = require('./model');
+var { Sender } = require('../amqp/sender');
 
 class OrderController {
     loadOrderById(req, res, next, id) {
@@ -15,6 +16,9 @@ class OrderController {
         order.save()
             .then(savedOrder => res.json(savedOrder))
             .catch(e => next(e));
+
+             let sender = new Sender('amqp:lady:lady@localhost:15672','colita');  
+            sender.sendMessage('Hola'); 
     }
 
     listOrder(query, res, next) {

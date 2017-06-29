@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var { ContactRouter } = require('./contact/routes');
 var { ProductRouter } = require('./product/routes');
 var { OrderRouter } = require('./order/routes');
+var { AmqpReceiver } = require('./amqp/receiver');
+var { AmqpSender } = require('./amqp/sender');
 
 mongoose.connect('mongodb://localhost:27017/restarantedb');
 let app = express();
