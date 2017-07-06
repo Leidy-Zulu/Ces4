@@ -1,6 +1,7 @@
 var { Router, Route } = require('../router');
 var { contactController } = require('./controller');
 var { ContactModel } = require('./model');
+var authController = require('../oauth2/auth');
 
 class ContactRouter extends Router {
 
@@ -12,13 +13,13 @@ class ContactRouter extends Router {
     get routes() {
         return {
             '/contacts': [
-                new Route("get", "getContactList"),
-                new Route("post", "createContact")
+                new Route("get", [authController.isAuthenticated, "getContactList"]),
+                new Route("post", [authController.isAuthenticated, "createContact"])
             ],
             '/contacts/:contactId': [
-                new Route("get", "getContact"),
-                new Route("put", "updateContact"),
-                new Route("delete", "deleteContact")
+                new Route("get", [authController.isAuthenticated, "getContact"]),
+                new Route("put", [authController.isAuthenticated, "updateContact"]),
+                new Route("delete", [authController.isAuthenticated, "deleteContact"])
             ]
         };
     }

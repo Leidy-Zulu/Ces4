@@ -16,7 +16,19 @@ class Router {
         Object.keys(routes).forEach((path) => {
             var pathConfig = routes[path];
             for (let action of pathConfig) {
-                this.app[action.verb](path, this[action.method].bind(this));
+                if(typeof action.method === 'string' || action.method instanceof String){
+                    this.app[action.verb](path, this[action.method].bind(this));
+                } else if(Array.isArray(action.method)){
+                    let callbacks = [];
+                    for(let method of action.method){
+                        if(typeof method === 'string' || method instanceof String){
+                            callbacks.push(this[method].bind(this));
+                        } else {
+                            callbacks.push(method);
+                        }
+                    }
+                    this.app[action.verb](path, callbacks);
+                }
             }
         });
     }

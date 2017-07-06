@@ -1,24 +1,27 @@
 var { Router, Route } = require('../router');
 var { orderController } = require('./controller');
 var { OrderModel } = require('./model');
+var authController = require('../oauth2/auth');
 
 class OrderRouter extends Router {
 
     constructor(app) {
         super(app);
+        console.log(orderController.loadOrderById);
         app.param('orderId', orderController.loadOrderById);
     }
 
     get routes() {
         return {
             '/order': [
-                new Route("get", "getOrderList"),
-                new Route("post", "createOrder")
+                new Route("get", [authController.isAuthenticated, "getOrderList"]),
+                new Route("post","createOrder"),
+                new Route("post","prueba")
             ],
             '/order/:orderId': [
-                new Route("get", "getOrder"),
-                new Route("put", "updateOrder"),
-                new Route("delete", "deleteOrder")
+                new Route("get","getOrder"),
+                new Route("put", [authController.isAuthenticated, "updateOrder"]),
+                new Route("delete", [authController.isAuthenticated, "deleteOrder"])
             ]
         };
     }
@@ -41,6 +44,10 @@ class OrderRouter extends Router {
 
     deleteOrder(req, res, next) {
         orderController.deleteOrder(req.order, res, next);
+    }
+
+    prueba(req, res, next){
+        return res.json(req.order);
     }
 }
 exports.OrderRouter = OrderRouter;

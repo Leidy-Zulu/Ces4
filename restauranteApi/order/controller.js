@@ -1,5 +1,5 @@
 var { OrderModel } = require('./model');
-var { Sender } = require('../amqp/sender');
+var { Client } = require('../amqp/request_reply');
 
 class OrderController {
     loadOrderById(req, res, next, id) {
@@ -13,12 +13,10 @@ class OrderController {
 
     createOrder(req, res, next) {
         let order = new OrderModel(req.body);
-        order.save()
+        /*order.save()
             .then(savedOrder => res.json(savedOrder))
-            .catch(e => next(e));
-
-             let sender = new Sender('amqp:lady:lady@localhost:15672','colita');  
-            sender.sendMessage('Hola'); 
+            .catch(e => next(e));*/
+            console.log('Se guardó ' + order);
     }
 
     listOrder(query, res, next) {
@@ -52,6 +50,18 @@ class OrderController {
         persitedOrder.remove()
             .then(deletedOrder => res.json(deletedOrder))
             .catch(e => next(e));
+    }
+
+    prueba(){
+        //Se crea la instancia de cliente que sera usada para realizar la peticion
+           let client = new Client('amqp://ces4:ces4@localhost:5672','Cola');
+            /**
+             * Se envia la peticion, el primer parametro es el mensaje que sera enviado como peticion,
+             * el segundo parametro es el callback que sera invocado cuando sea recibida la respuesta
+             */
+            client.sendRequest(JSON.stringify(req.body), function(reply){
+                console.log(`Respuesta recibida con exito ${reply}`);
+            });
     }
 }
 
