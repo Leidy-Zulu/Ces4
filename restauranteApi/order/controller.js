@@ -1,4 +1,5 @@
 var { OrderModel } = require('./model');
+var { Client } = require('../amqp/request_reply');
 
 class OrderController {
     loadOrderById(req, res, next, id) {
@@ -16,6 +17,8 @@ class OrderController {
             .then(savedOrder => res.json(savedOrder))
             .catch(e => next(e));
     }
+
+    //console.log('Se guardó ' + order);
 
     listOrder(query, res, next) {
          if(query.name != null && query.name != undefined){

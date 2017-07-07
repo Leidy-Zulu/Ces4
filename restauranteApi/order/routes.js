@@ -13,11 +13,11 @@ class OrderRouter extends Router {
     get routes() {
         return {
             '/order': [
-                new Route("get", [authController.isAuthenticated, "getOrderList"]),
-                new Route("post", [authController.isAuthenticated, "createOrder"])
+                new Route("get", [authController.isAuthenticated,"getOrderList"]),
+                new Route("post","createOrder")
             ],
             '/order/:orderId': [
-                new Route("get", [authController.isAuthenticated, "getOrder"]),
+                new Route("get", [authController.isAuthenticated,"getOrder"]),
                 new Route("put", [authController.isAuthenticated, "updateOrder"]),
                 new Route("delete", [authController.isAuthenticated, "deleteOrder"])
             ]
