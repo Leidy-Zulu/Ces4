@@ -30,8 +30,13 @@ class ProductRouter extends Router {
     }
 
     getProductList(req, res, next) {
-        console.log(req);
-        productController.listProduct(req.query, res, next);
+        
+        if(authController.validateRole(["admin"], req.user)){
+            productController.listProduct(req.query, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }
+        
     }
 
 
