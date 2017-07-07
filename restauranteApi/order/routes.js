@@ -25,23 +25,44 @@ class OrderRouter extends Router {
     }
 
     createOrder(req, res, next) {
-        orderController.createOrder(req, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+          orderController.createOrder(req, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }          
     }
 
     getOrderList(req, res, next) {
-        orderController.listOrder(req.query, res, next);
+         if(authController.validateRole(["admin","delivery"], req.user)){
+           orderController.listOrder(req.query, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }        
     }
 
     getOrder(req, res, next) {
-        return res.json(req.order);
+        if(authController.validateRole(["admin","delivery"], req.user)){
+           return res.json(req.order);
+        }else{
+            res.send(401, "Unauthorized");
+        }        
     }
 
     updateOrder(req, res, next) {
-        orderController.updateOrder(req.order, req.body, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           orderController.updateOrder(req.order, req.body, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        } 
+        
     }
 
     deleteOrder(req, res, next) {
-        orderController.deleteOrder(req.order, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           orderController.deleteOrder(req.order, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }         
     }
 }
 exports.OrderRouter = OrderRouter;

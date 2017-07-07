@@ -26,11 +26,16 @@ class ProductRouter extends Router {
     }
 
     createProduct(req, res, next) {
-        productController.createProduct(req, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           productController.createProduct(req, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }  
+        
     }
 
     getProductList(req, res, next) {
-        if(authController.validateRole(["admin"], req.user)){
+        if(authController.validateRole(["admin","delivery"], req.user)){
             productController.listProduct(req.query, res, next);
         }else{
             res.send(401, "Unauthorized");
@@ -39,15 +44,27 @@ class ProductRouter extends Router {
 
 
     getProduct(req, res, next) {
-        return res.json(req.product);
+        if(authController.validateRole(["admin","delivery"], req.user)){
+            return res.json(req.product);
+        }else{
+            res.send(401, "Unauthorized");
+        }        
     }
 
     updateProduct(req, res, next) {
-        productController.updateProduct(req.product, req.body, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           productController.updateProduct(req.product, req.body, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }        
     }
 
     deleteProduct(req, res, next) {
-        productController.deleteProduct(req.product, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           productController.deleteProduct(req.product, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }        
     }
 }
 exports.ProductRouter = ProductRouter;

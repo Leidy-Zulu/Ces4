@@ -25,23 +25,43 @@ class ContactRouter extends Router {
     }
 
     createContact(req, res, next) {
-        contactController.createContact(req, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           contactController.createContact(req, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }         
     }
 
     getContactList(req, res, next) {
-        contactController.listContacts(req.query, res, next);
+        if(authController.validateRole(["admin","delivery"], req.user)){
+           contactController.listContacts(req.query, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }          
     }
 
     getContact(req, res, next) {
-        return res.json(req.contact);
+        if(authController.validateRole(["admin","delivery"], req.user)){
+           return res.json(req.contact);
+        }else{
+            res.send(401, "Unauthorized");
+        }         
     }
 
     updateContact(req, res, next) {
-        contactController.updateContact(req.contact, req.body, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           contactController.updateContact(req.contact, req.body, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }         
     }
 
     deleteContact(req, res, next) {
-        contactController.deleteContact(req.contact, res, next);
+        if(authController.validateRole(["admin"], req.user)){
+           contactController.deleteContact(req.contact, res, next);
+        }else{
+            res.send(401, "Unauthorized");
+        }         
     }
 }
 exports.ContactRouter = ContactRouter;
