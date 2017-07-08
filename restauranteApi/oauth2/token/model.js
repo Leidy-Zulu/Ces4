@@ -13,6 +13,10 @@ const TokenSchema = new Schema({
     clientId: {
         type: String,
         required: true
+    },
+    expirationDate: {
+        type: Date,
+        required: true
     }
 });
 

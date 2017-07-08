@@ -37,11 +37,13 @@ server.exchange(oauth2orize.exchange.code((client, code, redirectUri, callback) 
             
             authCode.remove()
                 .then(() => {
-                    
+                    removePreviousToken(authCode.clientId);
                     var token = new TokenModel({
                         value: uid(256),
                         clientId: authCode.clientId,
-                        userId: authCode.userId
+                        userId: authCode.userId,
+                        expirationDate: expirationDate()
+
                     });
                     
                     token.save()
@@ -88,4 +90,21 @@ function uid (len) {
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function expirationDate(){
+var date = new Date();
+date.setDate(date.getDate() + 1);
+return date;
+}
+
+function removePreviousToken(clientId){
+    //var tokenModel = new TokenModel();
+    // tokenModel.remove( {clientId: clientId} );
+    // tokenModel.save();
+
+    TokenModel.remove({ clientId : clientId }, function (err) {
+        console.log("error: " + err);
+    // if no error, your models are removed
+});
 }

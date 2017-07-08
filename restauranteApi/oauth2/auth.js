@@ -10,7 +10,7 @@ passport.use(new BasicStrategy(
         UserModel.findOne({ username: username })
             .exec()
             .then((user) => {
-
+console.log("primero");
                 if (!user) { return callback(null, false); }
 
                 user.verifyPassword(password, function (err, isMatch) {
@@ -29,7 +29,7 @@ passport.use('client-basic', new BasicStrategy(
         ClientModel.findOne({ id: clientId })
             .exec()
             .then((client) => {
-
+console.log("segundo");
                 if (!client) { return callback(null, false); }
 
                 client.verifySecret(secret, function (err, isMatch) {
@@ -48,9 +48,10 @@ passport.use(new BearerStrategy(
         TokenModel.findOne({ value: accessToken })
             .exec()
             .then((token) => {
-
+                console.log(token);
+                
                 if (!token) { return callback(null, false); }
-
+                if (validateExpirationDate(token.expirationDate)) { return callback(null, false); }
                 UserModel.findOne({ _id: token.userId })
                     .exec()
                     .then((user) => {
@@ -72,6 +73,21 @@ validateRole = function(roles,user) {
      }
  
 };
+
+validateExpirationDate = function(date){
+console.log("date: " + date);
+
+    var today = new Date();
+    console.log("today: " + today);
+    console.log("validation: " + date <= today);
+    if(date <= today){
+        
+        return true;
+    }else{
+        return false;
+    }
+    
+}
 
 exports.isAuthenticated = passport.authenticate(['basic', 'bearer'], { session: false });
 exports.isClientAuthenticated = passport.authenticate('client-basic', { session: false });
