@@ -1,0 +1,25 @@
+<div  >
+
+ <md-card *ngFor ="let product of itemsUsers" class="product-card">
+   
+   <p class="card-name"> {{product.name}} </p>
+   <p class="card-description"> {{product.description}} </p>
+   <p class="card-price"> ${{product.price}} </p>
+   <p class="card-quantity"> {{product.quantity}} restantes</p>
+   
+   <md-select placeholder="Seleccionar cantidad">
+     <md-option *ngFor ="let quantity of getCount(product.quantity)" [value]="product.quantity">
+       {{quantity}} </md-option>
+      </md-select>
+   
+   </md-card>
+
+   <button md-button class="create-order-button">
+<md-icon>shopping_cart</md-icon>
+
+
+     
+   </button>
+
+</div>
+

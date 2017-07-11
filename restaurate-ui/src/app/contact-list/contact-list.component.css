@@ -1,0 +1,50 @@
+.product-card{
+
+cursor: pointer;
+display: inline-block;
+margin: 20px;
+vertical-align: top;
+width: 25vw;
+height: 350xp;
+}
+
+.card-name{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.card-description{
+    font-size: 18px;
+    color: gray;
+}
+
+.card-price{
+    color: brown;
+    font-weight: bold;
+}
+
+.card-quantity{
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+}
+
+.create-order-button{
+
+    background-color: hotpink;
+    color: white;
+    font-size: 18px;
+    border-radius: 60px;
+    height: 120px;
+    width: 120px;
+    position: fixed;
+    bottom: 70px;
+    right: 70px;
+
+}
+.create-order-button md-icon{
+     width: 90px;
+    height: 50px;
+    font-size: 60px;
+}
+   

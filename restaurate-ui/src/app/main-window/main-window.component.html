@@ -1,0 +1,14 @@
+<md-toolbar color="primary">
+  <span>Contacts</span>
+  <span class="fill-remaining-space"></span>
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon>more_vert</md-icon>
+</button>
+  <md-menu #menu="mdMenu">
+    <button md-menu-item routerLink="/home">
+    <md-icon>home</md-icon>
+    <span>Inicio</span>
+  </button>
+  </md-menu>
+</md-toolbar>
+<router-outlet></router-outlet>

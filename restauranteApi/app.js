@@ -24,6 +24,12 @@ app.use(session({
     saveUninitialized: true,
     resave: true
 }));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 let contactRouter = new ContactRouter(app);
 let productRouter = new ProductRouter(app);
 let orderRouter = new OrderRouter(app);
@@ -32,6 +38,8 @@ let orderExtRouter = new OrderExtRouter(app);
 let clientRouter = new ClientRouter(app);
 let userRouter = new UserRouter(app);
 let oauth2Router = new OAuth2Router(app);
+
+
 
 var server = app.listen(3000, function () {
     console.log(`Server listening on port ${server.address().port}`);
