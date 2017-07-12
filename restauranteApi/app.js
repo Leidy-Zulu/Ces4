@@ -61,3 +61,12 @@ server1.start({
         });
     }
 });
+
+server2.start({
+    processRequestMessage: function(message){
+        return new Promise(function(resolve) {
+            console.log(`Peticion getProducts recibida con exito  ${message}`); 
+            productRouter.getProductExport().then( product =>  resolve( JSON.stringify(product) ) );
+        });
+    }
+});

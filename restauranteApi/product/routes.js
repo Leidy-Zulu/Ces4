@@ -66,5 +66,17 @@ class ProductRouter extends Router {
             res.send(401, "Unauthorized");
         }        
     }
+
+    getProductExport(){
+        return ProductModel.find().exec()
+                .then((product) => {
+                    if (product.length) {
+                        //console.log(product);
+                        return product;
+                    }
+                    const err = new Error(`No existen productos`);
+                    return Promise.reject(err);
+                }); 
+    }
 }
 exports.ProductRouter = ProductRouter;
