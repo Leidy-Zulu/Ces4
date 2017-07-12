@@ -98,12 +98,9 @@ this.getContacts();
   });
 
 }
-
-
-
-
-
 }
+
+
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',

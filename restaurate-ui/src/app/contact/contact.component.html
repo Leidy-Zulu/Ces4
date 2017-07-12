@@ -1,6 +1,4 @@
-<div>
-
- <md-card *ngFor ="let contact of itemsContacts" class="contact-card">
+<md-card *ngFor ="let contact of itemsContacts" class="contact-card">
    
    	<p class="card-name"> {{contact.name}} </p>
    	<p class="card-surname"> {{contact.surname}} </p>
@@ -14,5 +12,3 @@
 <button (click)="openContactDialog()" md-button class="create-Contact-button">
 	<md-icon>shopping_cart</md-icon>
 </button>
-
-</div>

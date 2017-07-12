@@ -5,6 +5,8 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 
+var contactList = null;
+
 @Component({
   selector: 'dialog-contact',
   templateUrl: 'dialog-contact.html',
@@ -20,13 +22,8 @@ export class DialogContact {
   
   constructor(public dialogRef: MdDialogRef<DialogContact>, private services: RestauranteServicesModule, private router: Router) {
 
-  this.stateCtrl = new FormControl();
-
   }
 }
-
-
-
 
 @Component({
   selector: 'app-contact',
@@ -53,7 +50,7 @@ export class ContactComponent implements OnInit {
   }
 
   openContactDialog(){
-let dialogRef = this.dialog.open(DialogContact);
+    let dialogRef = this.dialog.open(DialogContact);
     dialogRef.afterClosed().subscribe(result => {
       this.selectedOption = result;
     });
