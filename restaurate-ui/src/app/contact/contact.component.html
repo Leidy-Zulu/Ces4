@@ -1,3 +1,18 @@
-<p>
-  contact works!
-</p>
+<div>
+
+ <md-card *ngFor ="let contact of itemsContacts" class="contact-card">
+   
+   	<p class="card-name"> {{contact.name}} </p>
+   	<p class="card-surname"> {{contact.surname}} </p>
+   	<ul > 
+   		<li *ngFor ="let phone of contact.listPhones" >
+     		{{phone.phone.name }}
+   		</li>
+ 	</ul>
+</md-card>
+
+<button (click)="openContactDialog()" md-button class="create-Contact-button">
+	<md-icon>shopping_cart</md-icon>
+</button>
+
+</div>

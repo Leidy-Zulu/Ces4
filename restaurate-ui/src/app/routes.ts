@@ -13,7 +13,7 @@ export const routeConfig: Routes = [
         path: '',
         component: MainWindowComponent,
         canActivate: [AuthGuard],
-        children: [  { path: 'home', component: ContactListComponent },  { path: 'order', component: OrderComponent }, { path: 'orderlist', component: OrderListComponent }]
+        children: [  { path: 'home', component: ContactListComponent },{ path: 'contact', component: ContactComponent },  { path: 'order', component: OrderComponent }, { path: 'orderlist', component: OrderListComponent }]
     }
 
   
