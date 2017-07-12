@@ -20,6 +20,6 @@ constructor(private tokenHandlerService: Oauthv2TokenHandlerService){}
     if (accessCode) {
       return this.tokenHandlerService.exchangeToken(accessCode).map((token) => true);
     }
-    location.href = 'http://localhost:3000/oauth2/authorize?client_id=domicilio&response_type=code&redirect_uri=http://localhost:4200';
+    location.href = 'http://localhost:3000/oauth2/authorize?client_id=administrador&response_type=code&redirect_uri=http://localhost:4200';
   }
 }

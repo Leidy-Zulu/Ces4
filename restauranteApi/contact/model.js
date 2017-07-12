@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const PhoneSchema = new Schema({
-    description: String,
+    descripcion: String,
     number: String,
     location: {
         type: {

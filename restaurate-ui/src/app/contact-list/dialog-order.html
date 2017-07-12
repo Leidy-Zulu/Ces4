@@ -1,0 +1,29 @@
+<md-card class="product-card">
+
+<md-input-container>
+  <input mdInput placeholder="Nombre" [mdAutocomplete]="auto" [formControl]="stateCtrl">
+</md-input-container>
+
+<md-autocomplete #auto="mdAutocomplete" >
+  <md-option *ngFor="let contact of itemsContacts" [value]="setSelectedContact(contact)">
+    {{ contactFullName(contact) }}
+  </md-option>
+</md-autocomplete>
+
+ <md-select placeholder="Teléfono">
+     <md-option *ngFor ="let phone of itemsContactsPhone" [value]="phone.number">
+       {{phone.number}} </md-option>
+      </md-select>
+
+   <md-select placeholder="Dirección"  [(ngModel)]="selectedAddress">
+     <md-option *ngFor ="let phone of itemsContactsPhone" [value]="phone.descripcion">
+       {{phone.descripcion}} </md-option>
+      </md-select>
+<br/>
+<br/>
+<br/>
+ <button (click)="createOrder()" md-button class="order-button">
+     Crear orden
+     </button>
+  
+</md-card>

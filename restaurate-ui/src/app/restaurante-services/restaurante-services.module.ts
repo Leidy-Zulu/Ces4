@@ -37,7 +37,7 @@ getProduct() {
 
 getContact() {
      return new Promise(resolve =>{
-      this.http.get(RestauranteServicesModule.API_BASE+RestauranteServicesModule.CONTACTS)
+      this.http.get(RestauranteServicesModule.API_BASE+RestauranteServicesModule.CONTACTS, { headers: this.security.getHeader() })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
@@ -47,7 +47,7 @@ getContact() {
 
 getOrder() {
    return new Promise(resolve =>{
-      this.http.get(RestauranteServicesModule.API_BASE+RestauranteServicesModule.ORDER)
+      this.http.get(RestauranteServicesModule.API_BASE+RestauranteServicesModule.ORDER, { headers: this.security.getHeader() })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
@@ -57,7 +57,7 @@ getOrder() {
 
   postProduct() {
     return new Promise(resolve =>{
-      this.http.post(RestauranteServicesModule.API_BASE+RestauranteServicesModule.PRODUCTS,"")
+      this.http.post(RestauranteServicesModule.API_BASE+RestauranteServicesModule.PRODUCTS, { headers: this.security.getHeader() },"")
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);
@@ -75,9 +75,10 @@ postContact() {
     });
   }
 
-postOrder() {
+postOrder(order) {
    return new Promise(resolve =>{
-      this.http.post(RestauranteServicesModule.API_BASE+RestauranteServicesModule.ORDER,"")
+     console.log(JSON.stringify(order));
+      this.http.post(RestauranteServicesModule.API_BASE+RestauranteServicesModule.ORDER,JSON.stringify(order), { headers: this.security.getHeader() })
         .map(res => res.json())
         .subscribe(data => {
           resolve(data);

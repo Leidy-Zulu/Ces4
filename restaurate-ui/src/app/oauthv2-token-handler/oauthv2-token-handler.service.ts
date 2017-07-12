@@ -52,8 +52,8 @@ export class Oauthv2TokenHandlerService {
   private getHeaders(): Headers {
     let headers = new Headers();
     headers.append('Accept', 'application/json');
-    let clientId = 'domicilio';
-    let clientSecret = 'domicilio';
+    let clientId = 'administrador';
+    let clientSecret = 'administrador';
     headers.append('Authorization', 'Basic ' + btoa(`${clientId}:${clientSecret}`));
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     return headers;

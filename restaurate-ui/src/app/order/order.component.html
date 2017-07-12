@@ -1,0 +1,14 @@
+<md-card *ngFor ="let order of orderList"  class="order-card"  >
+  
+ <p> {{contactFullName(order.contact)}}</p>
+ <p> {{order.address}}</p>
+ <ul > 
+   <li *ngFor ="let product of order.listProducts" >
+     {{product.product.name }}
+   </li>
+ </ul>
+  <p> {{status(order.status)}}</p>
+    <p> {{price(order.listProducts)}}</p>
+  
+
+</md-card>

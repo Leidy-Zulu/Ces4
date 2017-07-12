@@ -12,12 +12,22 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { MainWindowComponent } from './main-window/main-window.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
+import { OrderComponent } from './order/order.component';
+import { ContactComponent } from './contact/contact.component';
+import { DialogOrder } from './contact-list/contact-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrderListComponent } from './order-list/order-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MainWindowComponent,
-    ContactListComponent
+    ContactListComponent,
+    OrderComponent,
+    ContactComponent,
+    DialogOrder,
+    OrderListComponent
   
   ],
   imports: [
@@ -25,12 +35,17 @@ import { ContactListComponent } from './contact-list/contact-list.component';
     BrowserAnimationsModule,
     RouterModule.forRoot(routeConfig, {useHash: true}),
     MaterialModule,
-    HttpModule
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule
     
 
 
   ],
-  providers: [AuthGuard, Oauthv2TokenHandlerService, RestauranteServicesModule],
+  entryComponents:[
+    DialogOrder
+  ],
+  providers: [AuthGuard, Oauthv2TokenHandlerService, RestauranteServicesModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

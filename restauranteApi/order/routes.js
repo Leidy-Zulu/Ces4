@@ -14,7 +14,7 @@ class OrderRouter extends Router {
         return {
             '/order': [
                 new Route("get", [authController.isAuthenticated,"getOrderList"]),
-                new Route("post","createOrder")
+                new Route("post",[authController.isAuthenticated,"createOrder"])
             ],
             '/order/:orderId': [
                 new Route("get", [authController.isAuthenticated,"getOrder"]),
@@ -25,6 +25,7 @@ class OrderRouter extends Router {
     }
 
     createOrder(req, res, next) {
+        console.log(req);
         if(authController.validateRole(["admin"], req.user)){
           orderController.createOrder(req, res, next);
         }else{
@@ -41,6 +42,7 @@ class OrderRouter extends Router {
     }
 
     getOrder(req, res, next) {
+
         if(authController.validateRole(["admin","delivery"], req.user)){
            return res.json(req.order);
         }else{

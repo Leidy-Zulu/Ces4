@@ -7,14 +7,14 @@
    <p class="card-price"> ${{product.price}} </p>
    <p class="card-quantity"> {{product.quantity}} restantes</p>
    
-   <md-select placeholder="Seleccionar cantidad">
-     <md-option *ngFor ="let quantity of getCount(product.quantity)" [value]="product.quantity">
+   <md-select placeholder="Seleccionar cantidad" [(ngModel)]="product.selectedQuantity">
+     <md-option *ngFor ="let quantity of getCount(product.quantity)" [value]="quantity">
        {{quantity}} </md-option>
       </md-select>
    
    </md-card>
 
-   <button md-button class="create-order-button">
+   <button (click)="openOrderDialog(itemsUsers)" md-button class="create-order-button" [disabled]="!disabledOpenDialog()">
 <md-icon>shopping_cart</md-icon>
 
 

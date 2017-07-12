@@ -1,21 +1,30 @@
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
 const OrderSchema = new Schema({
-    idContact: String,
+    contact: {
+        type: Schema.Types.ObjectId,
+        ref: 'Contact'
+    },
     address: String,
     status: Number,
     listProducts: [
         {
-            idProduct: String,
-            quantity: Number
+            quantity: Number,
+            product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    }
+
         }
     ]
 });
 
 OrderSchema.statics = {
     list({ skip = 0, limit = 50 } = {}) {
-        return this.find()
+        return this.find().populate("contact listProducts.product")
             .skip(parseInt(skip))
             .limit(parseInt(limit))
             .exec();
@@ -46,5 +55,7 @@ OrderSchema.statics = {
             });
     }
 };
+
+
 const OrderModel = mongoose.model('Order', OrderSchema);
 exports.OrderModel = OrderModel;
