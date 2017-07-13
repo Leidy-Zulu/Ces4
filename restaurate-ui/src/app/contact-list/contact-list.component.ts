@@ -70,7 +70,8 @@ this.getContacts();
 
 
   setSelectedContact(contact){
-  
+    console.log('oeoeoeeo');
+    console.log(contact);
     this.itemsContactsPhone = contact.phoneList;
     this.selectedContact = contact;
     return this.contactFullName(contact);

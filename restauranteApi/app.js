@@ -46,6 +46,7 @@ var server = app.listen(3000, function () {
 });
 
 let server1 = new Server('amqp://ces4:ces4@localhost:5672','Cola');
+let server2 = new Server('amqp://ces4:ces4@localhost:5672','Cola');
 /**
  * El servidor es un listener, por tal motivo se inicia para que escuche por peticiones
  * el metodo start recibe un handler que tienen el metodo processRequestMessage, dicho metodo debe retornar

@@ -20,7 +20,7 @@ export class OrderComponent implements OnInit {
   price(listProduct){
     var value = 0;
     listProduct.forEach(product => {
-      value += product.product.price;
+      value += product.product.price * product.quantity;
     });
     return value;
 
